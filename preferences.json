@@ -1,0 +1,12 @@
+[
+  {
+    "property": "zen.xp.couleur",
+    "label": "Luna color",
+    "type": "dropdown",
+    "placeholder": "Blue (default)",
+    "options": [
+      { "label": "Olive Green", "value": "olive" },
+      { "label": "Silver", "value": "argent" }
+    ]
+  }
+]

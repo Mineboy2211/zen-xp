@@ -1,0 +1,439 @@
+@charset "UTF-8";
+/* ==========================================================
+   Zen XP v2 - theme Windows XP (Luna) pour Zen Browser
+   par Mineboy
+   ========================================================== */
+
+/* ---------- Couleurs : Luna BLEU (par défaut) ---------- */
+:root {
+  --xp-pane-1: #7ba2e7;
+  --xp-pane-2: #6375d6;
+  --xp-select-1: #4d8ae0;
+  --xp-select: #316ac5;
+  --xp-select-text: #fff;
+  --xp-frame: #0831d9;
+  --xp-title-1: #0997ff;
+  --xp-title-2: #0053ee;
+  --xp-title-3: #0066ff;
+  --xp-head-text: #215dc6;
+  --xp-head-grad: #c6d3f7;
+  --xp-btn-1: #5b9bff;
+  --xp-btn-2: #2c6ef2;
+  --xp-btn-3: #0b4fd6;
+  --xp-scroll: #c1d3fb;
+
+  --xp-beige: #ece9d8;
+  --xp-border: #7f9db9;
+  --xp-orange: #ffc73c;
+  --xp-green-1: #5eac56;
+  --xp-green-2: #3c9a3c;
+  --xp-green-3: #1f7a1f;
+  --xp-font: Tahoma, "Segoe UI", sans-serif;
+}
+
+/* ---------- Autres couleurs (réglage « Couleur Luna » du mod) ---------- */
+:root:has(#theme-Zen-XP[zen-xp-couleur="olive"]) {
+  --xp-pane-1: #ccd8a6; --xp-pane-2: #a0b56f;
+  --xp-select-1: #a8b98a; --xp-select: #93a070; --xp-select-text: #fff;
+  --xp-frame: #8ba169;
+  --xp-title-1: #b9cd8b; --xp-title-2: #8ba169; --xp-title-3: #9cb36f;
+  --xp-head-text: #56662d; --xp-head-grad: #e2e9c8;
+  --xp-btn-1: #b4c78d; --xp-btn-2: #8ca364; --xp-btn-3: #6f8743;
+  --xp-scroll: #d6e1b4;
+}
+:root:has(#theme-Zen-XP[zen-xp-couleur="argent"]) {
+  --xp-pane-1: #d6d7e3; --xp-pane-2: #a5a7bd;
+  --xp-select-1: #c6c8d4; --xp-select: #b2b4bf; --xp-select-text: #000;
+  --xp-frame: #a8a8b8;
+  --xp-title-1: #e3e3ec; --xp-title-2: #b1b1c3; --xp-title-3: #c4c4d4;
+  --xp-head-text: #3d3d53; --xp-head-grad: #e8e8f0;
+  --xp-btn-1: #f0f0f6; --xp-btn-2: #c9c9d6; --xp-btn-3: #a3a3b6;
+  --xp-scroll: #dcdce6;
+}
+
+/* ==========================================================
+   1. POLICE
+   ========================================================== */
+#navigator-toolbox, #urlbar, .tabbrowser-tab, toolbarbutton:not(.titlebar-button),
+menupopup, tooltip, zen-folder, tab-group {
+  font-family: var(--xp-font) !important;
+  font-size: 11px !important;
+}
+
+/* ==========================================================
+   2. BARRE LATÉRALE = PANNEAU DE TÂCHES XP
+   ========================================================== */
+#navigator-toolbox,
+#zen-main-app-wrapper {
+  background: linear-gradient(180deg, var(--xp-pane-1) 0%, var(--xp-pane-2) 100%) !important;
+}
+/* Mode compact : Zen ajoute son propre fond par-dessus la barre latérale */
+#navigator-toolbox .zen-toolbar-background,
+.zen-library-space .zen-toolbar-background {
+  background: linear-gradient(180deg, var(--xp-pane-1) 0%, var(--xp-pane-2) 100%) !important;
+  backdrop-filter: none !important;
+}
+#navigator-toolbox .zen-toolbar-background::before,
+#navigator-toolbox .zen-toolbar-background::after,
+.zen-library-space .zen-toolbar-background::before,
+.zen-library-space .zen-toolbar-background::after {
+  background: none !important;
+  opacity: 0 !important;
+}
+
+/* ==========================================================
+   3. ONGLETS = BOUTONS XP
+   ========================================================== */
+.tabbrowser-tab .tab-background {
+  background: linear-gradient(180deg, #ffffff 0%, var(--xp-beige) 100%) !important;
+  border: 1px solid #003c74 !important;
+  border-radius: 3px !important;
+  box-shadow: inset 0 -1px 0 #d6d0c5 !important;
+  overflow: hidden !important;
+}
+.tabbrowser-tab .tab-label { color: #000 !important; }
+.tabbrowser-tab:hover .tab-background { border-top: 2px solid var(--xp-orange) !important; }
+
+.tabbrowser-tab:is([selected], [visuallyselected]) .tab-background {
+  background: linear-gradient(180deg, var(--xp-select-1) 0%, var(--xp-select) 100%) !important;
+  border-color: var(--xp-frame) !important;
+}
+.tabbrowser-tab:is([selected], [visuallyselected]) .tab-label {
+  color: var(--xp-select-text) !important;
+  font-weight: bold !important;
+}
+
+/* ==========================================================
+   4. BARRE DE CHARGEMENT XP (blocs verts qui défilent)
+   ========================================================== */
+.tabbrowser-tab[busy] .tab-background::after {
+  content: "";
+  position: absolute;
+  left: 3px; right: 3px; bottom: 2px;
+  height: 4px;
+  background:
+    repeating-linear-gradient(90deg, #36c236 0 6px, transparent 6px 8px);
+  background-size: 40px 100%;
+  border: 1px solid #a5a5a5;
+  border-radius: 1px;
+  animation: xp-load 1.2s linear infinite;
+  opacity: .95;
+}
+.tabbrowser-tab .tab-background { position: relative !important; }
+@keyframes xp-load {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* ==========================================================
+   5. BOUTON « NOUVEL ONGLET » = BOUTON DÉMARRER
+   ========================================================== */
+#tabs-newtab-button,
+#vertical-tabs-newtab-button,
+.zen-workspace-tabs-section #tabs-newtab-button {
+  background: linear-gradient(180deg, var(--xp-green-1) 0%, var(--xp-green-2) 35%, #308f30 70%, var(--xp-green-3) 100%) !important;
+  border-radius: 0 12px 12px 0 !important;
+  box-shadow: 2px 1px 4px rgba(0,0,0,.35) !important;
+  margin: 4px 4px 4px 0 !important;
+  min-height: 30px !important;
+}
+#tabs-newtab-button:hover,
+#vertical-tabs-newtab-button:hover { filter: brightness(1.1); }
+#tabs-newtab-button .toolbarbutton-icon,
+#vertical-tabs-newtab-button .toolbarbutton-icon {
+  /* petit drapeau 4 couleurs à la place du "+" */
+  list-style-image: none !important;
+  background:
+    linear-gradient(#f35325, #f35325) 0 0 / 7px 7px no-repeat,
+    linear-gradient(#81bc06, #81bc06) 8px 0 / 7px 7px no-repeat,
+    linear-gradient(#05a6f0, #05a6f0) 0 8px / 7px 7px no-repeat,
+    linear-gradient(#ffba08, #ffba08) 8px 8px / 7px 7px no-repeat !important;
+  width: 15px !important; height: 15px !important;
+  transform: skewY(-6deg);
+  fill: transparent !important;
+}
+#tabs-newtab-button .toolbarbutton-text,
+#vertical-tabs-newtab-button .toolbarbutton-text,
+#tabs-newtab-button label,
+#vertical-tabs-newtab-button label {
+  font-size: 0 !important;
+}
+#tabs-newtab-button .toolbarbutton-text::after,
+#vertical-tabs-newtab-button .toolbarbutton-text::after,
+#tabs-newtab-button label::after,
+#vertical-tabs-newtab-button label::after {
+  content: "start";
+  font-size: 15px !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+  color: #fff !important;
+  text-shadow: 1px 1px 2px #000;
+}
+
+
+/* Texte du bouton selon la langue du navigateur (comme dans XP) */
+:root:lang(fr) :is(#tabs-newtab-button, #vertical-tabs-newtab-button) :is(.toolbarbutton-text, label)::after { content: "démarrer"; }
+:root:lang(es) :is(#tabs-newtab-button, #vertical-tabs-newtab-button) :is(.toolbarbutton-text, label)::after { content: "inicio"; }
+:root:lang(pt) :is(#tabs-newtab-button, #vertical-tabs-newtab-button) :is(.toolbarbutton-text, label)::after { content: "iniciar"; }
+:root:lang(ru) :is(#tabs-newtab-button, #vertical-tabs-newtab-button) :is(.toolbarbutton-text, label)::after { content: "пуск"; }
+:root:lang(de) :is(#tabs-newtab-button, #vertical-tabs-newtab-button) :is(.toolbarbutton-text, label)::after { content: "Start"; }
+:root:lang(it) :is(#tabs-newtab-button, #vertical-tabs-newtab-button) :is(.toolbarbutton-text, label)::after { content: "start"; }
+:root:lang(nl) :is(#tabs-newtab-button, #vertical-tabs-newtab-button) :is(.toolbarbutton-text, label)::after { content: "Start"; }
+:root:lang(pl) :is(#tabs-newtab-button, #vertical-tabs-newtab-button) :is(.toolbarbutton-text, label)::after { content: "Start"; }
+
+/* ==========================================================
+   6. DOSSIERS = CADRES DU PANNEAU DE TÂCHES XP
+   ========================================================== */
+zen-folder > .tab-group-label-container,
+tab-group > .tab-group-label-container {
+  background: linear-gradient(90deg, #fff 0%, var(--xp-head-grad) 100%) !important;
+  border: 1px solid #fff !important;
+  border-bottom: 0 !important;
+  border-radius: 5px 5px 0 0 !important;
+  margin: 6px 4px 0 !important;
+  min-height: 24px !important;
+  padding-inline: 6px !important;
+}
+:is(zen-folder, tab-group) > .tab-group-label-container,
+:is(zen-folder, tab-group) > .tab-group-label-container * {
+  opacity: 1 !important;
+  color: var(--xp-head-text) !important;
+  text-shadow: none !important;
+}
+:is(zen-folder, tab-group) > .tab-group-label-container::before { background: transparent !important; }
+:is(zen-folder, tab-group) > .tab-group-label-container :is(.tab-group-label, label) {
+  color: var(--xp-head-text) !important;
+  font-weight: bold !important;
+  background: transparent !important;
+}
+:is(zen-folder, tab-group) > .tab-group-label-container:hover :is(.tab-group-label, label) { color: #428eff !important; }
+:is(zen-folder, tab-group) > .tab-group-label-container :is(.tab-group-folder-icon, .icon, image) { fill: var(--xp-head-text) !important; }
+zen-folder > .tab-group-container,
+tab-group > .tab-group-container {
+  background: rgba(214, 223, 247, .8) !important;
+  border: 1px solid #fff !important;
+  border-top: 0 !important;
+  margin: 0 4px 6px !important;
+  padding: 3px !important;
+}
+
+
+/* Nom de l'espace de travail = en-tête de panneau de tâches XP */
+.zen-current-workspace-indicator::before {
+  background: linear-gradient(90deg, #fff 0%, var(--xp-head-grad) 100%) !important;
+  border: 1px solid #fff !important;
+  border-radius: 5px 5px 0 0 !important;
+  box-shadow: 1px 1px 2px rgba(0,0,0,.2) !important;
+}
+.zen-current-workspace-indicator:is(:hover, [open="true"])::before {
+  background: linear-gradient(90deg, #fff 0%, #dbe5fb 100%) !important;
+}
+.zen-current-workspace-indicator :is(.zen-current-workspace-indicator-name, .zen-current-workspace-indicator-icon, .zen-current-workspace-indicator-chevron) {
+  position: relative;
+  opacity: 1 !important;
+  color: var(--xp-head-text) !important;
+  fill: var(--xp-head-text) !important;
+  font-weight: bold !important;
+  text-shadow: none !important;
+}
+.zen-current-workspace-indicator:hover .zen-current-workspace-indicator-name { color: #428eff !important; }
+
+/* ==========================================================
+   7. BARRE D'ADRESSE
+   ========================================================== */
+/* Dans la barre latérale : champ blanc XP */
+#urlbar:not([breakout-extend]) #urlbar-background {
+  background: #fff !important;
+  border: 1px solid var(--xp-border) !important;
+  border-radius: 0 !important;
+}
+#urlbar:not([breakout-extend]) #urlbar-input { color: #000 !important; }
+
+/* Flottante : sombre + cadre XP */
+#urlbar[breakout-extend] #urlbar-background {
+  background: #12131a !important;
+  border: 3px solid var(--xp-frame) !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 6px 22px rgba(0,0,0,.55) !important;
+}
+#urlbar[breakout-extend] #urlbar-input { color: #fff !important; }
+#urlbar[breakout-extend] #urlbar-input::placeholder { color: #9aa4c8 !important; opacity: 1 !important; }
+#urlbar[breakout-extend] .urlbarView-title { color: #fff !important; }
+#urlbar[breakout-extend] .urlbarView-url { color: #7fb2ff !important; }
+#urlbar[breakout-extend] .urlbarView-row:is([selected], :hover) > .urlbarView-row-inner {
+  background: linear-gradient(180deg, var(--xp-select-1) 0%, var(--xp-select) 100%) !important;
+  border-radius: 3px !important;
+}
+#urlbar[breakout-extend] .urlbarView-row:is([selected], :hover) .urlbarView-url { color: #fff !important; }
+
+/* ==========================================================
+   8. BOUTONS DE LA BARRE D'OUTILS
+   ========================================================== */
+toolbarbutton:not(.titlebar-button) .toolbarbutton-icon { fill: #fff !important; }
+toolbarbutton:not(.titlebar-button, #tabs-newtab-button, #vertical-tabs-newtab-button, .zen-glance-sidebar-container *):hover > :is(.toolbarbutton-icon, .toolbarbutton-badge-stack) {
+  background: linear-gradient(180deg, #fff 0%, var(--xp-beige) 100%) !important;
+  border: 1px solid #003c74 !important;
+  border-radius: 3px !important;
+}
+toolbarbutton:not(.titlebar-button, .zen-glance-sidebar-container *):hover .toolbarbutton-icon { fill: #000 !important; }
+
+/* Boutons dans les onglets (fermer ×, réinitialiser −, son) : visibles sur le fond clair */
+.tabbrowser-tab :is(.tab-close-button, .tab-reset-button, .tab-reset-pin-button, .tab-audio-button) {
+  fill: #000 !important; color: #000 !important; opacity: .85 !important;
+}
+.tabbrowser-tab:is([selected], [visuallyselected]) :is(.tab-close-button, .tab-reset-button, .tab-reset-pin-button, .tab-audio-button) {
+  fill: var(--xp-select-text) !important; color: var(--xp-select-text) !important;
+}
+.tabbrowser-tab :is(.tab-close-button, .tab-reset-button, .tab-reset-pin-button):hover {
+  background: linear-gradient(135deg, #f0956f, #c13b0f) !important; fill: #fff !important; border-radius: 3px !important; opacity: 1 !important;
+}
+
+/* ==========================================================
+   9. CADRE DE LA PAGE = BORDURE DE FENÊTRE XP
+   ========================================================== */
+#tabbrowser-tabbox,
+.browserSidebarContainer {
+  border: 3px solid var(--xp-frame) !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+/* ==========================================================
+   10. GLANCE = VRAIE FENÊTRE XP
+   ========================================================== */
+:is(.browserSidebarContainer.zen-glance-overlay, #zen-glance-detached) .browserContainer .browserStack {
+  border: 3px solid var(--xp-frame) !important;
+  border-top: 28px solid transparent !important;
+  border-radius: 8px 8px 0 0 !important;
+  background:
+    linear-gradient(180deg, var(--xp-title-1) 0, var(--xp-title-2) 4px, var(--xp-title-2) 12px, var(--xp-title-3) 25px, var(--xp-title-2) 28px) border-box top / 100% 28px no-repeat,
+    var(--xp-frame) !important;
+  background-origin: border-box !important;
+  box-shadow: 6px 10px 30px rgba(0,0,0,.55) !important;
+  corner-shape: unset !important;
+}
+.zen-glance-sidebar-container toolbarbutton {
+  border: 1px solid #fff !important;
+  border-radius: 3px !important;
+  background: linear-gradient(135deg, var(--xp-btn-1) 0%, var(--xp-btn-2) 50%, var(--xp-btn-3) 100%) !important;
+  box-shadow: 1px 2px 4px rgba(0,0,0,.4) !important;
+}
+.zen-glance-sidebar-container toolbarbutton:hover { filter: brightness(1.15) !important; }
+.zen-glance-sidebar-container toolbarbutton.zen-glance-sidebar-close {
+  background: linear-gradient(135deg, #f0956f 0%, #e05a2b 50%, #c13b0f 100%) !important;
+}
+.zen-glance-sidebar-container toolbarbutton :is(image, .toolbarbutton-icon),
+.zen-glance-sidebar-container toolbarbutton:hover :is(image, .toolbarbutton-icon) {
+  fill: #fff !important; color: #fff !important;
+  background: none !important; border: 0 !important;
+}
+
+/* ==========================================================
+   11. MENUS CLIC DROIT XP
+   ========================================================== */
+menupopup {
+  --panel-background: #fff !important;
+  --panel-color: #000 !important;
+  --panel-border-color: #aca899 !important;
+  --panel-border-radius: 0 !important;
+  --panel-padding: 2px !important;
+  --panel-shadow: 3px 3px 4px rgba(0,0,0,.35) !important;
+}
+menupopup > :is(menuitem, menu) {
+  border-radius: 0 !important;
+  padding-block: 3px !important;
+  /* bande grise à gauche pour les icônes */
+  background: linear-gradient(90deg, #f0efe6 0 26px, #fff 26px) !important;
+  color: #000 !important;
+}
+menupopup > :is(menuitem, menu):is([_moz-menuactive], :hover) {
+  background: var(--xp-select) !important;
+  color: var(--xp-select-text) !important;
+}
+menupopup > :is(menuitem, menu)[disabled] { color: #aca899 !important; }
+menupopup > menuseparator {
+  border-top: 1px solid #aca899 !important;
+  margin: 3px 2px 3px 30px !important;
+  padding: 0 !important;
+}
+menupopup > menuseparator::before { display: none !important; }
+
+/* ==========================================================
+   12. INFOBULLES XP
+   ========================================================== */
+tooltip {
+  appearance: none !important;
+  background: #ffffe1 !important;
+  color: #000 !important;
+  border: 1px solid #000 !important;
+  border-radius: 0 !important;
+  padding: 2px 4px !important;
+  box-shadow: 2px 2px 3px rgba(0,0,0,.3) !important;
+  --panel-border-radius: 0 !important;
+}
+
+/* ==========================================================
+   13. BARRES DE DÉFILEMENT DE L'INTERFACE
+   ========================================================== */
+* { scrollbar-color: var(--xp-scroll) var(--xp-beige); }
+
+/* ==========================================================
+   14. BOUTONS RÉDUIRE / AGRANDIR / FERMER
+   ========================================================== */
+.titlebar-button {
+  margin: 5px 1px !important; padding: 0 !important;
+  min-width: 22px !important; width: 22px !important; height: 22px !important;
+  border: 1px solid #fff !important; border-radius: 3px !important;
+  background-color: transparent !important;
+}
+.titlebar-button > *, .titlebar-button::before, .titlebar-button::after { display: none !important; }
+.titlebar-min {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Crect x='6' y='13' width='8' height='2' fill='white'/%3E%3C/svg%3E") center / 22px 22px no-repeat,
+              linear-gradient(135deg, var(--xp-btn-1) 0%, var(--xp-btn-2) 50%, var(--xp-btn-3) 100%) !important;
+}
+.titlebar-max, .titlebar-restore {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Crect x='5.5' y='5.5' width='10' height='10' fill='none' stroke='white'/%3E%3Crect x='5.5' y='5.5' width='10' height='2.5' fill='white'/%3E%3C/svg%3E") center / 22px 22px no-repeat,
+              linear-gradient(135deg, var(--xp-btn-1) 0%, var(--xp-btn-2) 50%, var(--xp-btn-3) 100%) !important;
+}
+.titlebar-close {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M6 6L15 15M15 6L6 15' stroke='white' stroke-width='2.2'/%3E%3C/svg%3E") center / 22px 22px no-repeat,
+              linear-gradient(135deg, #f0956f 0%, #e05a2b 50%, #c13b0f 100%) !important;
+  margin-right: 6px !important;
+}
+.titlebar-button:hover { filter: brightness(1.15); }
+
+/* ==========================================================
+   15. LECTEUR MULTIMÉDIA FAÇON WINDOWS MEDIA PLAYER
+   ========================================================== */
+#zen-media-controls-toolbar .zen-media-card {
+  background: linear-gradient(180deg, #2c4a8f 0, #1c2f63 12px, #0d1a3d 60%, #050c22 100%) !important;
+  border: 2px solid #7f9db9 !important;
+  border-radius: 6px 6px 3px 3px !important;
+  outline: none !important;
+  box-shadow: 2px 3px 6px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25) !important;
+  color: #cfe0ff !important;
+  font-family: var(--xp-font) !important;
+}
+#zen-media-controls-toolbar .zen-media-card label { color: #cfe0ff !important; font-family: var(--xp-font) !important; }
+#zen-media-controls-toolbar .zen-media-card .toolbarbutton-1 > .toolbarbutton-icon {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0, #dfe6f2 35%, #9aa8c2 75%, #6c7a96 100%) !important;
+  border: 1px solid #2b3a5c !important;
+  border-radius: 50% !important;
+  fill: #1c2f63 !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,.5) !important;
+}
+#zen-media-controls-toolbar .zen-media-card .toolbarbutton-1:hover > .toolbarbutton-icon {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0, #e8f1ff 35%, #8fb6ff 75%, #3c74ff 100%) !important;
+}
+#zen-media-controls-toolbar .zen-media-progress-bar {
+  background: #000 !important;
+  border: 1px solid #4a5f8a !important;
+  border-radius: 0 !important;
+}
+#zen-media-controls-toolbar .zen-media-progress-bar::-moz-range-track { background: #0a1430 !important; border-radius: 0 !important; }
+#zen-media-controls-toolbar .zen-media-progress-bar::-moz-range-progress {
+  background: linear-gradient(180deg, #a6f07a, #3fae1f) !important; border-radius: 0 !important;
+}
+#zen-media-controls-toolbar .zen-media-progress-bar::-moz-range-thumb {
+  background: linear-gradient(180deg, #fff, #c6d3f7) !important; border: 1px solid #1c2f63 !important;
+  border-radius: 2px !important; width: 7px !important; transform: none !important;
+}

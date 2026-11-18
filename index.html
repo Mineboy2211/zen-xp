@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Accueil</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='s' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%232a62d8'/%3E%3Cstop offset='1' stop-color='%23a9c8f5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23s)'/%3E%3Cellipse cx='11' cy='10' rx='6' ry='2.5' fill='white' opacity='.85'/%3E%3Cpath d='M0 22 Q14 13 32 19 V26 Q32 32 26 32 H6 Q0 32 0 26Z' fill='%234f9a24'/%3E%3C/svg%3E">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; font-family: Tahoma, "Segoe UI", sans-serif; font-size: 12px; background: #3a6ea5; }
+
+  /* ================== BUREAU : BLISS ANIMÉ ================== */
+  .bliss { position: fixed; inset: -4%; background-position: center 70%; background-size: cover; background-repeat: no-repeat;
+           background-image:
+             radial-gradient(ellipse 95% 60% at 38% 118%, #8fd14f 0 30%, #79c23a 30% 45%, #64b02a 45% 58%, #519c1f 58% 66%, transparent 66.5%),
+             radial-gradient(ellipse 70% 45% at 92% 115%, #5fa82a 0 40%, #4a9420 40% 60%, transparent 61%),
+             linear-gradient(180deg, #2457cf 0.0% 8.3%, #2c62d6 8.3% 16.7%, #356ddc 16.7% 25.0%, #4079e1 25.0% 33.3%, #4d86e6 33.3% 41.7%, #5b93ea 41.7% 50.0%, #6ba0ee 50.0% 58.3%, #7cadf1 58.3% 66.7%, #8ebaf4 66.7% 75.0%, #a1c7f6 75.0% 83.3%, #b5d4f8 83.3% 91.7%, #c9e0fa 91.7% 100.0%);
+           animation: drift 60s ease-in-out infinite alternate; transform-origin: 40% 60%; }
+  @keyframes drift {
+    0%   { transform: scale(1.00) translate(0, 0); }
+    50%  { transform: scale(1.06) translate(-1.2%, 0.6%); }
+    100% { transform: scale(1.03) translate(1%, -0.4%); }
+  }
+  .shade { position: fixed; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: .35;
+           background:
+             radial-gradient(ellipse 22% 9% at 20% 75%, rgba(0,40,0,.55), transparent 70%),
+             radial-gradient(ellipse 18% 7% at 70% 82%, rgba(0,40,0,.5), transparent 70%);
+           background-size: 200% 100%; animation: shade 45s linear infinite; }
+  @keyframes shade { from { background-position: 100% 0, 100% 0; } to { background-position: -100% 0, -100% 0; } }
+  .shine { position: fixed; inset: 0; pointer-events: none; mix-blend-mode: soft-light;
+           background: linear-gradient(100deg, transparent 35%, rgba(255,255,220,.45) 50%, transparent 65%);
+           background-size: 300% 100%; animation: shine 20s ease-in-out infinite; }
+  @keyframes shine { 0%,30% { background-position: 150% 0; } 70%,100% { background-position: -50% 0; } }
+
+  .window { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); width: min(560px, 88vw); z-index: 3;
+            border: 3px solid #0831d9; border-top: 0; border-radius: 8px 8px 0 0; background: #ece9d8; box-shadow: 4px 6px 22px rgba(0,0,0,.45); }
+  .desk-in .window { animation: pop .35s ease-out; }
+  @keyframes pop { from { opacity: 0; transform: translate(-50%, 10px); } }
+  .titlebar { height: 30px; display: flex; align-items: center; justify-content: space-between; padding: 0 5px 0 9px; border-radius: 7px 7px 0 0;
+              background: linear-gradient(180deg, #0997ff 0%, #0053ee 8%, #0050ee 40%, #06f 88%, #0058ee 100%);
+              color: #fff; font-weight: bold; font-size: 13px; text-shadow: 1px 1px #0a1883; }
+  .btns { display: flex; gap: 2px; }
+  .b { width: 21px; height: 21px; border: 1px solid #fff; border-radius: 3px; display: grid; place-items: center;
+       background: linear-gradient(135deg, #5b9bff, #0b4fd6); }
+  .b.x { background: linear-gradient(135deg, #f0956f, #c13b0f); }
+  .content { padding: 16px; }
+  .clock { text-align: center; font-size: 44px; color: #0a246a; font-weight: bold; }
+  .date { text-align: center; color: #333; margin-bottom: 14px; font-size: 13px; }
+  form { display: flex; gap: 6px; }
+  input { flex: 1; height: 26px; border: 1px solid #7f9db9; padding: 0 6px; font: inherit; font-size: 13px; outline: none; }
+  input:focus { border-color: #316ac5; }
+  button { min-width: 80px; height: 26px; font: inherit; border: 1px solid #003c74; border-radius: 3px;
+           background: linear-gradient(180deg, #fff 0%, #ece9d8 90%); cursor: pointer; }
+  button:hover { box-shadow: inset 0 0 0 2px #f8b636; }
+
+  /* ================== STYLE "PIXEL 2001" ================== */
+  /* Texte sans anti-crénelage, comme XP en 2001 */
+  .px { filter: url(#crisp); }
+  .flag { background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2716%27%20height%3D%2714%27%20shape-rendering%3D%27crispEdges%27%3E%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%272%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%273%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%274%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%275%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%276%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%278%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%279%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2710%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2711%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2714%27%20y%3D%271%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%271%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%272%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%273%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%274%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%275%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%276%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%278%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%279%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2710%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2711%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2714%27%20y%3D%272%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%270%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%271%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%272%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%273%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%274%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%275%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%276%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%278%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%279%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2710%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2711%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2714%27%20y%3D%273%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%270%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%271%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%272%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%273%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%274%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%275%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%276%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%278%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%279%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2710%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2711%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%274%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%270%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%271%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%272%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%273%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%274%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%275%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%277%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%278%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%279%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2710%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2711%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%275%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%270%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%271%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%272%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%273%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%274%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ff7a3d%27/%3E%3Crect%20x%3D%275%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23e3381b%27/%3E%3Crect%20x%3D%277%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%278%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%279%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2710%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2711%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23a3d83a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%276%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%235aa21a%27/%3E%3Crect%20x%3D%271%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%272%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%273%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%274%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%275%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%276%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%278%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%279%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2710%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2712%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2713%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2714%27%20y%3D%278%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%271%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%272%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%273%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%274%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%275%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%276%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%278%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%279%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2710%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2711%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2712%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2714%27%20y%3D%279%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%270%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%271%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%272%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%273%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%274%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%275%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%276%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%278%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%279%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2710%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2711%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2714%27%20y%3D%2710%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%270%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%271%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%272%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%273%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%274%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%275%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%276%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%278%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%279%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2710%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2711%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%2711%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%270%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%271%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%272%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%273%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%274%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%275%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%277%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%278%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%279%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2710%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2711%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2713%27%20y%3D%2712%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%270%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%271%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%272%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%273%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%274%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%233fc0ff%27/%3E%3Crect%20x%3D%275%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%230a7fd6%27/%3E%3Crect%20x%3D%277%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%278%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%279%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2710%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2711%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23ffd84a%27/%3E%3Crect%20x%3D%2712%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3Crect%20x%3D%2713%27%20y%3D%2713%27%20width%3D%271%27%20height%3D%271%27%20fill%3D%27%23f5a300%27/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; image-rendering: pixelated; image-rendering: crisp-edges; }
+
+  /* ================== ÉCRAN DE DÉMARRAGE ================== */
+  .screen { position: fixed; inset: 0; z-index: 10; }
+  .screen.hide { display: none !important; }
+  #boot { background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 64px; }
+  .logo { display: flex; align-items: flex-end; gap: 10px; }
+  #boot .flag { width: 64px; height: 56px; }
+  .brand { color: #fff; line-height: 1; }
+  .brand small { display: block; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; margin-bottom: 1px; }
+  .brand b { font-family: "Franklin Gothic Medium", Arial, sans-serif; font-size: 44px; font-weight: normal; letter-spacing: -1px; }
+  .brand b sup { color: #ff6a00; font-size: 24px; font-style: italic; font-weight: bold; margin-left: 2px; }
+  .bar { width: 154px; height: 18px; border: 2px solid #b2b2b2; border-radius: 3px; position: relative; overflow: hidden; }
+  .bar .blocks { position: absolute; top: 2px; display: flex; gap: 2px; animation: slide 2.2s steps(22) infinite; }
+  .bar .blocks i { width: 8px; height: 10px; background: linear-gradient(180deg, #2838c7 0 25%, #3c74ff 25% 45%, #6b97ff 45% 60%, #3c74ff 60% 80%, #2838c7 80%); }
+  @keyframes slide { from { left: -32px; } to { left: 154px; } }
+  .copy { position: absolute; bottom: 18px; left: 24px; color: #fff; font-family: Arial, sans-serif; font-size: 11px; }
+  .skip { position: absolute; bottom: 18px; right: 24px; color: #666; font-family: Tahoma, sans-serif; font-size: 11px; }
+
+  /* ================== OUVERTURE DE SESSION ================== */
+  #logon, #welcome { background: #5a7edc; display: flex; flex-direction: column; font-family: Tahoma, sans-serif; }
+  .top, .bot { height: 78px; background: #00309c; flex: none; }
+  .top { border-bottom: 2px solid #fff; border-image: linear-gradient(90deg, #5a7edc 0 10%, #adc3ef 10% 25%, #fff 25% 75%, #adc3ef 75% 90%, #5a7edc 90%) 1; }
+  .bot { border-top: 2px solid #f28f23; border-image: linear-gradient(90deg, #00309c 0 10%, #c66f1d 10% 25%, #f28f23 25% 75%, #c66f1d 75% 90%, #00309c 90%) 1;
+          display: flex; align-items: center; padding: 0 26px; color: #fff; font-size: 13px; }
+  .mid { flex: 1; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse 75% 95% at 18% 0%, #a6c0f2 0.0% 12.5%, #9bb7ef 12.5% 25.0%, #90adec 25.0% 37.5%, #85a4e9 37.5% 50.0%, #7b9ae5 50.0% 62.5%, #7091e2 62.5% 75.0%, #6587df 75.0% 87.5%, #5a7edc 87.5% 100.0%); }
+  #logon .left { width: 42%; text-align: right; padding-right: 30px; color: #fff; }
+  #logon .mini { display: inline-flex; align-items: flex-end; gap: 6px; margin-bottom: 22px; }
+  #logon .mini .flag { width: 48px; height: 42px; }
+  #logon .mini .brand b { font-size: 34px; }
+  #logon .mini .brand b sup { font-size: 18px; }
+  #logon .left p { font-size: 15px; font-weight: bold; }
+  .sep { width: 1px; align-self: stretch; margin: 50px 0; background: linear-gradient(180deg, #5a7edc 0 8%, #8fa8ea 8% 20%, #c6d6f7 20% 80%, #8fa8ea 80% 92%, #5a7edc 92%); }
+  #logon .right { width: 42%; padding-left: 30px; }
+  .user { display: inline-flex; align-items: center; gap: 12px; padding: 6px 46px 6px 6px; cursor: pointer; color: #fff; }
+  .user:hover { background: linear-gradient(90deg, #00309c 0 30%, #1a46ab 30% 55%, #3a5fc0 55% 80%, transparent 80%); }
+  .user .av { width: 50px; height: 50px; border: 2px solid #fff; background: #fff; overflow: hidden; flex: none; }
+  .user .av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .user .av img.pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
+  .user:hover .av { border-color: #ffc73c; }
+  .user span { font-size: 18px; }
+  .off { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .off i { width: 22px; height: 22px; border: 1px solid #fff; background: linear-gradient(180deg, #ea7a4f 0 50%, #c8461b 50%); display: grid; place-items: center; font-style: normal; font-size: 13px; font-weight: bold; }
+
+  /* ================== BIENVENUE ================== */
+  #welcome .mid { justify-content: flex-start; padding-left: 12%; }
+  #welcome h1 { color: #fff; font-family: Verdana, Tahoma, sans-serif; font-size: 52px; font-style: italic; font-weight: bold; text-shadow: 2px 2px 0 #3150a8; }
+
+  /* ================== FENÊTRE « CHANGER D'IMAGE » ================== */
+  .link { color: #0033cc; text-decoration: underline; cursor: pointer; font-size: 11px; }
+  .link:hover { color: #3366ff; }
+  .user-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .user-wrap .link { color: #fff; margin-left: 68px; opacity: .8; }
+  .win-foot { margin-top: 10px; display: flex; justify-content: flex-end; }
+  #dlgBack { position: fixed; inset: 0; z-index: 50; display: none; place-items: center; background: rgba(0,0,0,.15); }
+  #dlgBack.open { display: grid; }
+  .dlg { width: 420px; border: 3px solid #0831d9; border-top: 0; border-radius: 8px 8px 0 0; background: #ece9d8; box-shadow: 4px 6px 22px rgba(0,0,0,.45); font-family: Tahoma, sans-serif; }
+  .dlg .content { padding: 12px 14px; }
+  .dlg .row { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+  .dlg .prev { width: 64px; height: 64px; border: 2px solid #fff; outline: 1px solid #7f9db9; background: #fff; flex: none; }
+  .dlg .prev img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .dlg label { display: block; margin-bottom: 3px; }
+  .dlg input[type=text] { width: 100%; }
+  .dlg fieldset { border: 1px solid #d0d0bf; border-radius: 3px; padding: 6px 8px 8px; margin-bottom: 10px; }
+  .dlg legend { color: #0046d5; padding: 0 3px; }
+  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .grid img { width: 52px; height: 52px; border: 2px solid transparent; cursor: pointer; image-rendering: pixelated; }
+  .grid img:hover { border-color: #ffc73c; }
+  .grid img.sel { border-color: #316ac5; outline: 1px dotted #000; }
+  .dlg .btnrow { display: flex; gap: 6px; flex-wrap: wrap; }
+  .dlg .actions { display: flex; justify-content: flex-end; gap: 6px; margin-top: 4px; }
+  .dlg button { min-width: 75px; padding: 0 8px; }
+  .pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="crisp" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer></filter></svg>
+
+<!-- ========== BUREAU ========== -->
+<div class="bliss"></div>
+<div class="shade"></div>
+<div class="shine"></div>
+
+<div class="window">
+  <div class="titlebar"><span data-i18n="search_title">Rechercher sur Internet</span>
+    <div class="btns">
+      <div class="b"><svg width="9" height="9"><rect x="1" y="6" width="6" height="2" fill="#fff"/></svg></div>
+      <div class="b"><svg width="9" height="9"><rect x="0.5" y="0.5" width="8" height="8" fill="none" stroke="#fff"/><rect x="0.5" y="0.5" width="8" height="2" fill="#fff"/></svg></div>
+      <div class="b x"><svg width="9" height="9"><path d="M1 1L8 8M8 1L1 8" stroke="#fff" stroke-width="2"/></svg></div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="clock" id="clock">--:--</div>
+    <div class="date" id="date"></div>
+    <form action="https://www.google.com/search" method="get" target="_blank">
+      <input name="q" id="q" placeholder="Que voulez-vous rechercher ?" data-i18n-ph="search_ph" autocomplete="off">
+      <button type="submit" data-i18n="search_btn">Rechercher</button>
+    </form>
+    <div class="win-foot"><span class="link" data-open-dlg data-i18n="account_link">Compte et fond d'écran…</span></div>
+  </div>
+</div>
+
+
+<!-- ========== FENÊTRE CHANGER D'IMAGE ========== -->
+<div id="dlgBack">
+  <div class="dlg">
+    <div class="titlebar"><span data-i18n="dlg_title">Comptes d'utilisateurs</span>
+      <div class="btns"><div class="b x" id="dlgX"><svg width="9" height="9"><path d="M1 1L8 8M8 1L1 8" stroke="#fff" stroke-width="2"/></svg></div></div>
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="prev" id="dlgPrev"></div>
+        <div style="flex:1"><label for="dlgNom" data-i18n="dlg_name">Nom du compte :</label><input type="text" id="dlgNom" maxlength="24"></div>
+      </div>
+      <fieldset><legend data-i18n="dlg_pick">Choisir une image</legend>
+        <div class="grid" id="dlgGrid"></div>
+        <div class="btnrow" style="margin-top:8px">
+          <button type="button" id="dlgUpload" data-i18n="browse">Parcourir…</button>
+          <button type="button" id="dlgDefault" data-i18n="dlg_default_img">Image par défaut</button>
+        </div>
+      </fieldset>
+      <fieldset><legend data-i18n="dlg_wall">Fond d'écran</legend>
+        <div class="btnrow">
+          <button type="button" id="dlgWall" data-i18n="browse">Parcourir…</button>
+          <button type="button" id="dlgWallReset" data-i18n="dlg_default_wall">Fond par défaut</button>
+        </div>
+      </fieldset>
+      <div class="actions"><button type="button" id="dlgOk" data-i18n="ok">OK</button><button type="button" id="dlgCancel" data-i18n="cancel">Annuler</button></div>
+    </div>
+  </div>
+</div>
+<input type="file" id="fileAv" accept="image/*" hidden>
+<input type="file" id="fileWall" accept="image/*" hidden>
+
+<!-- ========== DÉMARRAGE ========== -->
+<div class="screen" id="boot">
+  <div class="logo">
+    <div class="flag"></div>
+    <div class="brand px"><small>Mineboy</small><b>Zen<sup>xp</sup></b></div>
+  </div>
+  <div class="bar"><div class="blocks"><i></i><i></i><i></i></div></div>
+  <div class="copy px"><span data-i18n="homemade">Thème fait maison</span></div>
+  <div class="skip" data-i18n="skip">Clic ou Échap pour passer</div>
+</div>
+
+<!-- ========== OUVERTURE DE SESSION ========== -->
+<div class="screen hide" id="logon">
+  <div class="top"></div>
+  <div class="mid">
+    <div class="left">
+      <div class="mini"><div class="flag"></div><div class="brand px"><b>Zen<sup>xp</sup></b></div></div>
+      <p class="px" data-i18n="logon_hint">Pour commencer, cliquez sur votre nom d'utilisateur</p>
+    </div>
+    <div class="sep"></div>
+    <div class="right">
+      <div class="user-wrap"><div class="user" id="user"><div class="av" id="av"></div><span class="px" id="nom">Utilisateur</span></div><span class="link px" data-open-dlg data-i18n="edit_account">Modifier le compte</span></div>
+    </div>
+  </div>
+  <div class="bot"><div class="off px" id="off"><i>⏻</i><span data-i18n="shutdown">Arrêter l'ordinateur</span></div></div>
+</div>
+
+<!-- ========== BIENVENUE ========== -->
+<div class="screen hide" id="welcome">
+  <div class="top"></div>
+  <div class="mid"><h1 class="px" data-i18n="welcome">bienvenue</h1></div>
+  <div class="bot"></div>
+</div>
+
+<script src="profil.js"></script>
+<script>
+  // ---------- Langue du navigateur ----------
+  const I18N = {"fr": {"search_title": "Rechercher sur Internet", "search_ph": "Que voulez-vous rechercher ?", "search_btn": "Rechercher", "account_link": "Compte et fond d'écran…", "homemade": "Thème fait maison", "skip": "Clic ou Échap pour passer", "logon_hint": "Pour commencer, cliquez sur votre nom d'utilisateur", "edit_account": "Modifier le compte", "shutdown": "Arrêter l'ordinateur", "welcome": "bienvenue", "dlg_title": "Comptes d'utilisateurs", "dlg_name": "Nom du compte :", "dlg_pick": "Choisir une image", "browse": "Parcourir…", "dlg_default_img": "Image par défaut", "dlg_wall": "Fond d'écran", "dlg_default_wall": "Fond par défaut", "ok": "OK", "cancel": "Annuler", "img_chosen": "Image choisie ✓", "too_big": "Image trop lourde pour être enregistrée.", "user": "Utilisateur", "page": "Accueil"}, "en": {"search_title": "Search the Internet", "search_ph": "What do you want to search for?", "search_btn": "Search", "account_link": "Account and wallpaper…", "homemade": "Homemade theme", "skip": "Click or press Esc to skip", "logon_hint": "To begin, click your user name", "edit_account": "Edit account", "shutdown": "Turn off computer", "welcome": "welcome", "dlg_title": "User Accounts", "dlg_name": "Account name:", "dlg_pick": "Pick a picture", "browse": "Browse…", "dlg_default_img": "Default picture", "dlg_wall": "Desktop background", "dlg_default_wall": "Default background", "ok": "OK", "cancel": "Cancel", "img_chosen": "Picture selected ✓", "too_big": "Image too large to be saved.", "user": "User", "page": "Home"}, "es": {"search_title": "Buscar en Internet", "search_ph": "¿Qué desea buscar?", "search_btn": "Buscar", "account_link": "Cuenta y fondo de escritorio…", "homemade": "Tema casero", "skip": "Clic o Esc para omitir", "logon_hint": "Para comenzar, haga clic en su nombre de usuario", "edit_account": "Modificar la cuenta", "shutdown": "Apagar el equipo", "welcome": "bienvenido", "dlg_title": "Cuentas de usuario", "dlg_name": "Nombre de la cuenta:", "dlg_pick": "Elegir una imagen", "browse": "Examinar…", "dlg_default_img": "Imagen predeterminada", "dlg_wall": "Fondo de escritorio", "dlg_default_wall": "Fondo predeterminado", "ok": "Aceptar", "cancel": "Cancelar", "img_chosen": "Imagen elegida ✓", "too_big": "Imagen demasiado grande para guardarla.", "user": "Usuario", "page": "Inicio"}, "de": {"search_title": "Im Internet suchen", "search_ph": "Wonach möchten Sie suchen?", "search_btn": "Suchen", "account_link": "Konto und Hintergrund…", "homemade": "Selbstgemachtes Design", "skip": "Klicken oder Esc zum Überspringen", "logon_hint": "Klicken Sie zum Starten auf Ihren Benutzernamen", "edit_account": "Konto bearbeiten", "shutdown": "Computer ausschalten", "welcome": "Willkommen", "dlg_title": "Benutzerkonten", "dlg_name": "Kontoname:", "dlg_pick": "Bild auswählen", "browse": "Durchsuchen…", "dlg_default_img": "Standardbild", "dlg_wall": "Desktophintergrund", "dlg_default_wall": "Standardhintergrund", "ok": "OK", "cancel": "Abbrechen", "img_chosen": "Bild ausgewählt ✓", "too_big": "Bild zu groß zum Speichern.", "user": "Benutzer", "page": "Startseite"}, "pt": {"search_title": "Pesquisar na Internet", "search_ph": "O que você deseja pesquisar?", "search_btn": "Pesquisar", "account_link": "Conta e plano de fundo…", "homemade": "Tema caseiro", "skip": "Clique ou Esc para pular", "logon_hint": "Para começar, clique no seu nome de usuário", "edit_account": "Alterar a conta", "shutdown": "Desligar o computador", "welcome": "bem-vindo", "dlg_title": "Contas de usuário", "dlg_name": "Nome da conta:", "dlg_pick": "Escolher uma imagem", "browse": "Procurar…", "dlg_default_img": "Imagem padrão", "dlg_wall": "Plano de fundo", "dlg_default_wall": "Plano de fundo padrão", "ok": "OK", "cancel": "Cancelar", "img_chosen": "Imagem escolhida ✓", "too_big": "Imagem grande demais para salvar.", "user": "Usuário", "page": "Início"}, "it": {"search_title": "Cerca in Internet", "search_ph": "Cosa vuoi cercare?", "search_btn": "Cerca", "account_link": "Account e sfondo…", "homemade": "Tema fatto in casa", "skip": "Clic o Esc per saltare", "logon_hint": "Per iniziare, fare clic sul nome utente", "edit_account": "Modifica account", "shutdown": "Spegni computer", "welcome": "benvenuto", "dlg_title": "Account utente", "dlg_name": "Nome account:", "dlg_pick": "Scegli un'immagine", "browse": "Sfoglia…", "dlg_default_img": "Immagine predefinita", "dlg_wall": "Sfondo del desktop", "dlg_default_wall": "Sfondo predefinito", "ok": "OK", "cancel": "Annulla", "img_chosen": "Immagine scelta ✓", "too_big": "Immagine troppo grande da salvare.", "user": "Utente", "page": "Home"}, "ru": {"search_title": "Поиск в Интернете", "search_ph": "Что вы хотите найти?", "search_btn": "Найти", "account_link": "Учётная запись и фон…", "homemade": "Самодельная тема", "skip": "Щелчок или Esc — пропустить", "logon_hint": "Чтобы начать работу, щёлкните имя пользователя", "edit_account": "Изменить учётную запись", "shutdown": "Выключить компьютер", "welcome": "приветствие", "dlg_title": "Учётные записи пользователей", "dlg_name": "Имя учётной записи:", "dlg_pick": "Выбрать рисунок", "browse": "Обзор…", "dlg_default_img": "Рисунок по умолчанию", "dlg_wall": "Фон рабочего стола", "dlg_default_wall": "Фон по умолчанию", "ok": "ОК", "cancel": "Отмена", "img_chosen": "Рисунок выбран ✓", "too_big": "Изображение слишком большое для сохранения.", "user": "Пользователь", "page": "Главная"}};
+  const LANGS = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"]);
+  const LANG = (LANGS.map(l => l.slice(0, 2).toLowerCase()).find(l => I18N[l])) || "en";
+  const t = k => (I18N[LANG] && I18N[LANG][k]) || I18N.en[k] || k;
+  document.documentElement.lang = LANG;
+  document.title = t("page");
+  document.querySelectorAll("[data-i18n]").forEach(e => e.textContent = t(e.dataset.i18n));
+  document.querySelectorAll("[data-i18n-ph]").forEach(e => e.placeholder = t(e.dataset.i18nPh));
+
+  // ---------- Profil ----------
+  // Priorité : choix fait dans la page > profil.js (photo Windows / nom Zen) > défaut
+  const AVATARS = {"canard": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAB7ElEQVR42mPc//g/Ay0BEwONwdC3gIVIdWvSGeHskJn/qWkBxOgpHVJwkZx0RuKtYdx05y8e6Z15zMhGI4Ocimfuk/5SFAcI01WmMahMQ5Od0iG1M4+ZGnGgMo3hThbZkYwIIkznTHGSYnBjYGBgYNB9KiQk9O4gJxkBxYIIDScpXIqEhIRom0yxuh0ttiAMTN+wfPr5j4GBwbL7d04pa540F7KcmroAMdYjp7ScPGbL7t84fUCkicgRgJZFpnRI5ZSyItvBuOQqgnO8lBUzLeK3AKuCnIpncDtQfIDmu+OlrLiMoEIkHy9lnbJ8AQMDA8PDKlxqiLGbBavRDAwMU5YvwGX0t2fP4GwuKQJ2ME4/9xOZf6WGHY+7kI1GBsjW5FQ802n5SXJxDTH99SMs4qJyDN+ePYPYgWY6ug/Icz6aJ9DsGExVJp745JKS+njtGRUiGVcqgptevYgBLQ5YDt/6iMwXhDGQXcSvJYXVKx+vPfv4AcXhrXEM1TXs7+NeIXwQteIVmgMFF4lBMhEuX+MB1YsYkE1nYGBg1G+7hlWpAD8XSUZvFFaoXsRwxOYasUXFh4/fbI5owYsEPL6pXsTAwMBQzYDFdBQfFHhpMjAwTNh2HVMR3CaswKTtP5rGAi9NOBdnEI22TWEAAJygyleZsV22AAAAAElFTkSuQmCC", "fusee": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAACRklEQVR42mPkEXJgoCVgIlUDH8c7Wlnw+e1+Po53J+XekmQHCRZIS+uflHvLwMCA347Pb/djt+Dz2/3NffspD3ReYUfsFkxYyFBb5Ign6CHOhwDiA4pRSMKHoCIOpkfIpsOB+SPhH//kqJyKSAUsRDpf5viTJ5YycMGHPTsZGBhWMTCEhUXh9wQLMa7g3nYTTkLBtQdU8wEysCk8AmHMSpWhvgU2hUdEE90h7LTZO4m0g4mNjRsXevt8MxsbN1ypaKL7AXsEO232EwgbjwlsbNz4UpGkfASaiMNB2hd2eMDzhyvKm1aQEwdfvdQFjz95PX8nPA5ez985K1XmY5odA4MMHh8TtoDpz3V4Hj7Sb2NTuBMtFc0WeJL6geEfiyZ1kumRfhtoNiA+H7Cx8uCS+/P9NNYiCA1APMHCaTowZREWCx7emUO88+Ge+PP9NLFxIK+Sgin4/v3XOXPWIItYWZmQnw/QnG/+SFhHxwpNTVhYVOoHGTRPrA69DkHEpiLzR8IMDAwsnKZYQ4CF0zT1A9R0iIi4rAKEsTr0euhqTQYGBhbk0gbJB1DTufgdYAWOQ6lAAoO7F1TFzm2z+PMg4gwMDKkfDsDtgNu0OvR69EYT7D7g4ncwf3QAbjp+sNT/DAMDT+AimWPVOphSOJMppumq/XkMO7dBnK/an4cmi2k6SiTfvjaRwvT+8vEDrFxoEKlq5VOep9DsIDcnQ0IJCURvxJkhojeaMGrpV5Fk/tXsNu2pWLTM9zyAJpK43YGaZRHEOEwuAKpV0sUQbYK/AAAAAElFTkSuQmCC", "chat": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAACc0lEQVR42r1WMYsaQRT+PCSFEFiLtDl/wLJjc3DF+g+OKzaFsiwRIYKgYBW4InAWKYQQMLDCugYkQYJNrrCzukbSHMJutEsTrk2znDabZlOMN1lnZ9eNx+Vh8WbevO978828WTPB7TUe047wyMYTkLP2Q+Ci6UdcWNO0gznIWVtVVS5dINFhHBQ97Rn8K0ccOoAs/HV09vL4FNpWUPfrWwDkxRtuTXheVdX+yXnzZrqNhTCzcUVRDgZhGAZf9T00gP7JeRxOJvgx5dI0Tbs8PqXDd7++U8dxnGKxyBw2BPD6mUKd5s10Pp/TnaXqA4aebMnLsg+BTrNesINcLndYHxQKBeEt2qRJZopThw0Ftgu428l6l7st+fKy1+vly8sojjBkGAbRu2kPOV9evnr+mfkpQ7GHTPSuLMuO44Sl+Hj7Mi6TC7FEWZaJ3nW/XAhuUZKygCRJaQ4JwGq1+p/fA3+9/UUsmJWEfnLo73Pkr+Gvs8mCBLNSp1MKZhDSs5AkSZ7nJR0yqfX3brb+8wnzh4Xfex7wWt8dNQFkgsWA1Pqu6wrXDYdD6lQqFQBPu1cA1hcagMlksiWu18UchLijZiZYDMI7oI3GXRiKDqDRaFiWxeYZBzWq0ng83n4wRk0ACBYDRVGCGLNt+y5kuq7f7Zpt23G5iqIEi0EW/sa1qoSQcLsLrzwtn9tEWEbP81j5AFyrCn+TCb6957VrfApzMH2ExlSi6K5V3f9cu1Y1XAgntBCdSh9Fj+1k16qappnMEZ40TVOIDkAgUVgrAK1WK6oVQ6d1xKHvIRDShKtOhr4nuO6k+mvVvuJl/KClSUxLcLD9AcJ5Zv1mC4jkAAAAAElFTkSuQmCC", "guitare": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAACG0lEQVR42mOcs+cDA5VAf6DYujOXg0x0GRgYIIzC9a8YqWVBf6AYAy8HuujnH0wMNAZUs6Bw/SuGzz8YGBj2nrsFF1x35jITFSPAwUBk77lbzkZqcMEgE10mKppeu/pcc6gRsvi6M5dZvnz5TRU7ME2H+ICFcqNnx0rvvf0IYfrnH3Cp1MVPWYg0AlkPPtMx1LAQY+5cSVG4YHKsNNwITNMPXHiD5gLGCRte4zL9Sm0WAwPDyTmrMWWTn79mYGAgaDoBH2A1Gu4nhUNnCZrOwMBAZirCND1y+gOsRmHPB8szFZDDHSuIfclIZlGxPFMBPTm/fBv08i2y8x/YGaM5H5cFLFjdLijCDRdxvPro2ccfDAwMQQxv14kLk2Q6ugV4TGdgYHj28YfCTdJMRwkiTNPRwIsXL4zUFZBTKkHTGRgYWD5//gPnYJq+X1sO4gmI6evEhVGqEyS9BHywpUwFV7LZry2HaXry89c+XXeoU+Hwrzv0Mchuv7bcjW/fKa3R3r/5isyVXt4FMZ2BgeH4ozcMDAxk2IHuA4hBENO/sFvw/DyBLEidOvn4ozdw059GllFiOgMDA2N2911oom7SnCspeuPb95Cj8yAia6yTMDVocHEmP3/tUHedTB8QNJ38IHKou578/PUV12z8ppPkfHQfwO3AdCl5pqPEAaKEadJEqybhVRippmO3ANkaZM+RmYri628MjbYpLgAAJlkk2h9FUAoAAAAASUVORK5CYII=", "papillon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAB0ElEQVR42sVVMU/CUBC+EpwbV90NCYbBtSwuDgyEX9CEiUQHCIlbnWAjITho4gTyByQMDC7EpJ0kDiZNwEUWnUwbulkGHVrKe/f62oeheOlwvX73fXfv3qXSzNEhzsqZfHeqiwRZS4mwL/az5Uw+NvhHge5Ul22TpPPYZdsU6SDNqxrEDCFZSYmdQTmTN2pUROkAAHhVB053qocikUYqlh0A2EgEEvUkPX8Ng5dqrujnFFahEVXdYj8LAF4fFDuNVzpw/TrEHYSw0z7JGM6+8o0aVHNFSgCxH54deA/O57Cz+EAjBQlb4gLMHowACvDx+ElFIiwOn3Jcy3EtnCPIHod3XCsdnwMbaoTOoDHpeesqYiJIpQONSY8aMtaY0w/N6/sMBrHjW7TWmDMlCUdIds41nYd3bZTC/ejctPNtcQ/y5sd3LqSNMCQn1UFLqa9LCzKRT5YfhjFK0FLqu9vkfxQgz503AwGM9PDe5o6BseMn/4cTgVEGcGm0iVvkWls/FpITH1FlrCkDbmmhPsJUxhp3BuqyydPwMmXblG2zMtYiMHgG9zM/pN6e9M9fgg93p03UGVsvD6Mum/09DQtsy9SjRv/tKsE9INmTukU73eRfWqvn3d4cduMAAAAASUVORK5CYII=", "planete": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAACCUlEQVR42mOU4rdloCVgIkbR0w+HaGuBtIAdSYYiO4iJcjfidxDjoIgDSgALOzM3bS0gXulLjh/IXPEfHNSxAG6uae9+ZPHTxY7EWMOoKOSB3/Sp+xDmLjiPruB0sSN+O/BZgGY6BHQvv4rMFdXQxm8Hpano9Y2rpr370aIHJQ7YcKSix6xvIYGe8KcbWTwhFF2l9moG0979p4sdZX8LYwkiddFgTNEb+83h7IdntuH3hLyJF5yt4XgSXyqCm4tsaDz7fmhQBJQh4nZDF5y9jSEHyQQvNJtYGBgYbrxaoyEWcmO/OdxcrSqURKmg4a2ggdMHXvenQBgPZudca9sGtwliBwsDA4OGWAjE1e6lsEBkfYuSFjd0ITufgYHBNKAM2RNwADdhZ/c2BgZhlFSEMJ0IgNV0rDaxsLNwYVPwFtNEiCfQjFawTHtwfBaci2kawgcXd+vC2Sr/ZSElAS6HK1imQRAuH8BNY9STjMUU1Xe9fIfxMXI8v75xFdMUiAUQHzyYnaPyXxbZBCwWYPWNw+VSXBZA7NgqEwDnws1FZDSsFsDBHcbHX3d54Y9P7dVeEOeju/LZIn2pOAIWQOyAhxVWf2A1HeEDE5kMgony2r8b8PoAzY4Hs3O0mDTwFdfEWIBsDRrAbzppVSZBswamVYFuwenH02lrgalsJnkG4XIZo7V88dBu2QEAbWjIlMObvhsAAAAASUVORK5CYII="};
+  const LS = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+    set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+  };
+  function pixelFor(nom) {
+    let h = 0; for (const c of nom) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    const k = Object.keys(AVATARS); return AVATARS[k[h % k.length]];
+  }
+  function profil() {
+    const local = window.ZENXP_PROFIL || {}, perso = LS.get("zenxp-profil") || {};
+    const nom = perso.nom || local.nom || t("user");
+    return { nom, photo: perso.photo || local.photo || null, secours: pixelFor(nom) };
+  }
+  function setImg(box, src, secours) {
+    box.innerHTML = "";
+    const img = document.createElement("img");
+    const isPixel = s => s && s.startsWith("data:image/png;base64,") && Object.values(AVATARS).includes(s);
+    img.onerror = () => { img.onerror = null; img.src = secours; img.className = "pixel"; };
+    img.src = src || secours;
+    if (!src || isPixel(src)) img.className = "pixel";
+    box.appendChild(img);
+  }
+  function applyProfil() {
+    const p = profil();
+    document.getElementById("nom").textContent = p.nom;
+    setImg(document.getElementById("av"), p.photo, p.secours);
+  }
+  applyProfil();
+
+  // ---------- Fond d'écran ----------
+  function applyWall() {
+    const el = document.querySelector(".bliss");
+    const perso = LS.get("zenxp-fond");
+    const essais = [perso, "file:///C:/Users/Utilisateur/Pictures/Bliss.png"].filter(Boolean);
+    (function next() {
+      const src = essais.shift();
+      if (!src) { el.style.backgroundImage = ""; return; }
+      const im = new Image();
+      im.onload = () => { el.style.backgroundImage = `url("${src}")`; };
+      im.onerror = next;
+      im.src = src;
+    })();
+  }
+  applyWall();
+
+  // ---------- Fenêtre « Comptes d'utilisateurs » ----------
+  const dlg = document.getElementById("dlgBack");
+  let brouillon = {};
+  function reduire(file, max, qualite) {
+    return new Promise((ok, ko) => {
+      const r = new FileReader();
+      r.onload = () => {
+        const im = new Image();
+        im.onload = () => {
+          const k = Math.min(1, max / Math.max(im.width, im.height));
+          const c = document.createElement("canvas");
+          c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+          c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+          ok(c.toDataURL("image/jpeg", qualite));
+        };
+        im.onerror = ko; im.src = r.result;
+      };
+      r.onerror = ko; r.readAsDataURL(file);
+    });
+  }
+  function majApercu() {
+    const nom = document.getElementById("dlgNom").value.trim() || t("user");
+    setImg(document.getElementById("dlgPrev"), brouillon.photo, pixelFor(nom));
+    document.querySelectorAll("#dlgGrid img").forEach(i => i.classList.toggle("sel", i.src === brouillon.photo));
+  }
+  function ouvrirDlg() {
+    const p = profil(), perso = LS.get("zenxp-profil") || {};
+    brouillon = { photo: perso.photo || null, fond: undefined };
+    document.getElementById("dlgNom").value = perso.nom || (window.ZENXP_PROFIL || {}).nom || "";
+    document.getElementById("dlgNom").placeholder = t("user");
+    majApercu();
+    dlg.classList.add("open");
+  }
+  const grid = document.getElementById("dlgGrid");
+  for (const [n, src] of Object.entries(AVATARS)) {
+    const i = document.createElement("img"); i.src = src; i.title = n; i.className = "pixel";
+    i.onclick = () => { brouillon.photo = src; majApercu(); };
+    grid.appendChild(i);
+  }
+  document.querySelectorAll("[data-open-dlg]").forEach(e => e.addEventListener("click", ev => { ev.stopPropagation(); ouvrirDlg(); }));
+  document.getElementById("user").addEventListener("contextmenu", e => { e.preventDefault(); ouvrirDlg(); });
+  document.getElementById("dlgNom").addEventListener("input", majApercu);
+  document.getElementById("dlgUpload").onclick = () => document.getElementById("fileAv").click();
+  document.getElementById("dlgWall").onclick = () => document.getElementById("fileWall").click();
+  document.getElementById("fileAv").onchange = async e => {
+    const f = e.target.files[0]; if (!f) return;
+    brouillon.photo = await reduire(f, 128, .9); majApercu(); e.target.value = "";
+  };
+  document.getElementById("fileWall").onchange = async e => {
+    const f = e.target.files[0]; if (!f) return;
+    brouillon.fond = await reduire(f, 1920, .82); e.target.value = "";
+    document.getElementById("dlgWall").textContent = t("img_chosen");
+  };
+  document.getElementById("dlgDefault").onclick = () => { brouillon.photo = null; majApercu(); };
+  document.getElementById("dlgWallReset").onclick = () => { brouillon.fond = null; document.getElementById("dlgWall").textContent = t("browse"); };
+  function fermerDlg() { dlg.classList.remove("open"); document.getElementById("dlgWall").textContent = t("browse"); }
+  document.getElementById("dlgOk").onclick = () => {
+    const nom = document.getElementById("dlgNom").value.trim();
+    LS.set("zenxp-profil", (nom || brouillon.photo) ? { nom: nom || null, photo: brouillon.photo } : null);
+    if (brouillon.fond !== undefined && !LS.set("zenxp-fond", brouillon.fond)) alert(t("too_big"));
+    applyProfil(); applyWall(); fermerDlg();
+  };
+  document.getElementById("dlgCancel").onclick = fermerDlg;
+  document.getElementById("dlgX").onclick = fermerDlg;
+  dlg.addEventListener("click", e => { if (e.target === dlg) fermerDlg(); });
+
+  // ---------- Horloge ----------
+  function tick() {
+    const d = new Date();
+    document.getElementById("clock").textContent = d.toLocaleTimeString(LANG, { hour: "2-digit", minute: "2-digit" });
+    const s = d.toLocaleDateString(LANG, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    document.getElementById("date").textContent = s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  tick(); setInterval(tick, 1000);
+
+  document.querySelector("form").addEventListener("submit", e => setTimeout(() => e.target.q.value = "", 100));
+
+  // ---------- Séquence de démarrage ----------
+  const $ = id => document.getElementById(id);
+  const boot = $("boot"), logon = $("logon"), welcome = $("welcome");
+  let stage = "boot", bootTimer;
+
+  function store(get) {
+    try { return get ? sessionStorage.getItem("zenxp-started") : sessionStorage.setItem("zenxp-started", "1"); }
+    catch (e) { return null; }
+  }
+
+  function showDesktop() {
+    stage = "desk";
+    [boot, logon, welcome].forEach(s => s.classList.add("hide"));
+    document.body.classList.add("desk-in");
+    store(false);
+    setTimeout(() => $("q").focus(), 650);
+  }
+  function showLogon() {
+    if (stage !== "boot") return;
+    clearTimeout(bootTimer);
+    stage = "logon";
+    logon.classList.remove("hide");
+    boot.classList.add("hide");
+  }
+  function showWelcome() {
+    if (stage !== "logon") return;
+    stage = "welcome";
+    welcome.classList.remove("hide");
+    logon.classList.add("hide");
+    setTimeout(showDesktop, 1600);
+  }
+
+  if (store(true)) {
+    // Déjà démarré dans cet onglet : direct au bureau
+    boot.classList.add("hide");
+    showDesktop();
+  } else {
+    bootTimer = setTimeout(showLogon, 3200);
+    boot.addEventListener("click", showLogon);
+    $("user").addEventListener("click", showWelcome);
+    $("off").addEventListener("click", showDesktop);
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") { if (dlg.classList.contains("open")) fermerDlg(); else showDesktop(); }
+      else if (e.key === "Enter" && stage === "logon") showWelcome();
+    });
+  }
+</script>
+</body>
+</html>
