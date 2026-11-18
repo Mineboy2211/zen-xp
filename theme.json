@@ -1,0 +1,16 @@
+{
+  "id": "zen-xp",
+  "name": "Zen XP",
+  "description": "Turn Zen into Windows XP (Luna): task pane sidebar, start button, XP windows, 3 colors.",
+  "homepage": "https://github.com/Mineboy2211/zen-xp",
+  "style": "https://raw.githubusercontent.com/Mineboy2211/zen-xp/main/chrome.css",
+  "preferences": "https://raw.githubusercontent.com/Mineboy2211/zen-xp/main/preferences.json",
+  "readme": "https://raw.githubusercontent.com/Mineboy2211/zen-xp/main/readme.md",
+  "image": "https://raw.githubusercontent.com/Mineboy2211/zen-xp/main/image.png",
+  "author": "Mineboy2211",
+  "version": "2.0.0",
+  "tags": ["sine", "theme", "retro", "windows-xp", "luna"],
+  "fork": ["zen"],
+  "createdAt": "2026-11-18",
+  "updatedAt": "2026-11-18"
+}

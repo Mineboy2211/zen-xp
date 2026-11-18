@@ -2,6 +2,8 @@
 
 Turn Zen into **Windows XP (Luna)**.
 
+![Zen XP](image.png)
+
 - Sidebar styled like the XP task pane, tabs as XP buttons
 - Green **start** button for new tabs (follows your browser language)
 - Glance opens as a real XP window, XP title bar buttons
@@ -10,14 +12,30 @@ Turn Zen into **Windows XP (Luna)**.
 - Works in normal and compact mode
 - 3 Luna colors: **Blue**, **Olive Green** and **Silver** (in the mod settings)
 
+## Install
+
+### With Sine (recommended)
+Install [Sine](https://github.com/CosmoCreeper/Sine), open its marketplace and search for **Zen XP**.
+
+### Manually
+1. Type `about:support` in the address bar and click **Open Folder** next to *Profile Folder*.
+2. Open the `chrome` folder (create it if it doesn't exist).
+3. Download [`chrome.css`](chrome.css) and save it there as `userChrome.css`.
+4. Type `about:config`, set `toolkit.legacyUserProfileCustomizations.stylesheets` to `true`.
+5. Restart Zen completely (Ctrl+Shift+Q).
+
+In manual mode the theme stays Blue. To pick Olive Green or Silver, install it with Sine.
+
 ## XP home page (optional)
 
 Set this as your home page in Settings → Home:
 
-https://mineboy2211.github.io/zen-xp/
+**https://mineboy2211.github.io/zen-xp/**
 
 It has an XP boot screen, a log-on screen and a desktop with a search box.
 Click **Account and wallpaper…** to set your name, your picture (pixel art avatars or your own photo) and your wallpaper.
 Available in English, French, Spanish, German, Portuguese, Italian and Russian.
 
-Made by Mineboy.
+## Credits
+
+Made by Mineboy. Not affiliated with Microsoft. All artwork in this mod is original.
